@@ -9,7 +9,7 @@ NPM or node package manager used as a source of packages for javascript developm
 
 NPMs can be installed globally or locally.
 
-```sh 
+```sh
 Global
 npm install -g <package-name>
 ```
@@ -126,4 +126,24 @@ Src attributes should now include this prefix before the filename
 ```sh
 src = "/static/main.js"
 ```
- 
+
+### Processing form data
+Two types of form data need to be taken into account. One is url-encoded data which is a data submitted through HTML forms. The other is multipart/form data such as pictures and files.
+
+In order for ExpressJS to read these data the use of the following middleware is necessary:
+
+body-parser for url-encoded data
+multer for multipart/form data
+
+```sh
+Requiring body-parse and multer
+var bodyParser = require('body-parse');
+var multer = require('multer');
+var upload = multer();
+```
+
+```sh
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for url-encoded data
+app.use(upload.array()); //for parsing multipart/form-data
+```
