@@ -13,8 +13,11 @@ mongoose.connect('mongodb://localhost/my_db', {
 });
 // cookie-parser
 var cookieParser = require('cookie-parser');
+// sessions
+var session = require('express-session');
 
 app.use(cookieParser());
+app.use(session({secret: "Shh, its a secret!"}));
 
 //for rendering pug templates
 app.set('view engine', 'pug');
@@ -37,10 +40,10 @@ app.get('/', function(req, res) {
   console.log('Cookies: ', req.cookies);
 });
 
-app.post('/', function(req, res) {
+/* app.post('/', function(req, res) {
   console.log(req.body);
   res.send("received your request!");
-});
+}); */
 
 // creating a schema for a model named person
 var personSchema = mongoose.Schema({
@@ -48,6 +51,7 @@ var personSchema = mongoose.Schema({
   age: Number,
   nationality: String
 });
+
 // creation of model
 var Person = mongoose.model("Person", personSchema);
 
