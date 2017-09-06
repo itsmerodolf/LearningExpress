@@ -147,3 +147,29 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for url-encoded data
 app.use(upload.array()); //for parsing multipart/form-data
 ```
+
+### Database
+The tutorial introduces a popular NOSQL database called mongodb. It stores JSON files. Interacting with mongodb through express can be made easier by using a module called mongoose.
+
+It can be required by:
+```sh
+// for document modeling using mongoose
+var mongoose = require('mongoose');
+// connect app to my_db mongo database
+mongoose.connect('mongodb://localhost/my_db', {
+  useMongoClient: true,
+});
+```
+
+Mongoose allows the creation of schemas when creating an object model
+
+```sh
+// creating a schema for a model named person
+var personSchema = mongoose.Schema({
+  name: String,
+  age: Number,
+  nationality: String
+});
+// creation of model
+var Person = mongoose.model("Person", personSchema);
+```

@@ -11,6 +11,10 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/my_db', {
   useMongoClient: true,
 });
+// cookie-parser
+var cookieParser = require('cookie-parser');
+
+app.use(cookieParser());
 
 //for rendering pug templates
 app.set('view engine', 'pug');
@@ -28,7 +32,9 @@ app.use(upload.array());
 app.use(express.static('public'));
 
 app.get('/', function(req, res) {
+  res.cookie('name', 'express', {maxAge: 360000}); //sets name =
   res.render('form');
+  console.log('Cookies: ', req.cookies);
 });
 
 app.post('/', function(req, res) {
