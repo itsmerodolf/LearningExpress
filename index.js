@@ -82,6 +82,28 @@ app.post('/person', function(req, res){
    }
 });
 
+// grab database and present in json format
+app.get('/people', function(req,res) {
+  Person.find(function(err, response) {
+    res.json(response);
+  });
+});
+
+// update people
+app.put('/people/:id', function(req, res){
+   Person.findByIdAndUpdate(req.params.id, req.body, function(err, response){
+      if(err) res.json({message: "Error in updating person with id " + req.params.id});
+      res.json(response);
+   });
+});
+
+// delete people
+app.delete('/people/:id', function(req, res) {
+    Person.findByIdAndRemove(req.params.id, function(err, response) {
+      if(err) res.json({message: "Error in deleting record id " + req.params.id});
+      else res.json({message: "Person with id " + req.params.id + "removed."});
+    });
+});
 // for creating static files
 //app.use(express.static('public')); //public folder will now be searched for src
 //app.use('/static', express.static('public2')); // path prefexing to distinguish between multiple directories

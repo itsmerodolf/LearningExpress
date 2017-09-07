@@ -173,3 +173,26 @@ var personSchema = mongoose.Schema({
 // creation of model
 var Person = mongoose.model("Person", personSchema);
 ```
+
+### CRUD
+```sh
+Create = use .save(callback)
+  app.post('/person', function(req,res) {
+    newPerson.save(function(err, Person)
+  });
+Post = use .find(conditions, callback)
+  app.get('/people', function(req, res){
+   Person.find(function(err, response){
+      res.json(response);
+   });
+  });
+Update = use .update(conditions, updates, callback)
+  app.put('/people/:id', function(req, res){
+    Person.update({age: 25}, {nationality: "American"}, function(err, response){console.log(response);
+    });
+  });
+Delete = use .remove(condition, [callback])
+  app.delete('/people/:id', function(req, res){
+    Person.remove({age:20});
+  });
+```
