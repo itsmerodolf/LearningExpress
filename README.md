@@ -196,3 +196,39 @@ Delete = use .remove(condition, [callback])
     Person.remove({age:20});
   });
 ```
+
+### Cookies
+Cookies in express are handled by the modele 'cookie-parser'
+
+Install and require:
+```sh
+npm install --save cookie-parser
+```
+
+```sh
+var cookieParser = require('cookie-parser');
+app.use(cookieParser());
+```
+
+Creating cookies and removing them are now possible through:
+```sh
+res.cookie(name, 'value', {maxAge: 36000}); //maxAge sets the time limit of the cookie upon creation
+
+res.clearcookie('name'); // will delete the cookie
+```
+
+### Sessions
+The module express-session goes hand-in-hand with cookie-parser.Session handles creation of sessions, setting session cookies and creating session objects.
+
+```sh
+app.get('/', function(req, res){
+   if(req.session.page_views){
+      req.session.page_views++;
+      res.send("You visited this page " + req.session.page_views + " times");
+   } else {
+      req.session.page_views = 1;
+      res.send("Welcome to this page for the first time!");
+   }
+});
+```
+This sample simply creates a view counter for the client that will indicated how many times the client viewed the page.

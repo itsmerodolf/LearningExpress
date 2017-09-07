@@ -35,10 +35,21 @@ app.use(upload.array());
 app.use(express.static('public'));
 
 app.get('/', function(req, res) {
-  res.cookie('name', 'express', {maxAge: 360000}); //sets name =
+  if(req.session.page_views){
+    req.session.page_views++;
+    res.send("You visited this page " + req.session.page_views + " times");
+  } else {
+    req.session.page_views = 1;
+    res.send("Welcome to this page for the first time!");
+  }
+});
+/*
+app.get('/', function(req, res) {
+  res.cookie('name', 'express', {maxAge: 360000}); //sets name = express with time limit
   res.render('form');
   console.log('Cookies: ', req.cookies);
 });
+*/
 
 /* app.post('/', function(req, res) {
   console.log(req.body);
